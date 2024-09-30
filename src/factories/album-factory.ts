@@ -14,11 +14,20 @@ function generateAlbum() {
 }
 
 const generateAlbumChildren = () => {
+  const imageFileTypes = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+
+  // Function to generate a random image file type
+  function getRandomImageFileType() {
+    return faker.helpers.arrayElement(imageFileTypes);
+  }
+
+  const type = faker.number.int({ min: 1, max: 2 })
+
   return  {
-      Type: faker.number.int({ min: 1, max: 2 }), 
+      Type: type, 
       
       // Album/Folder properties
-      Name: faker.music.genre(),
+      Name: type === 2 ? `${faker.music.genre()}.${getRandomImageFileType()}` : faker.music.genre(),
       AlbumOwner: faker.name.fullName(),
       ItemsCount: faker.number.int({ min: 1, max: 50 }),
       
@@ -26,6 +35,11 @@ const generateAlbumChildren = () => {
       AltText: faker.lorem.sentence(),
       ImageUrl: "https://picsum.photos/200", 
       Id: faker.number.int({ min: 1, max: 1000 }), 
+
+      // Image properties
+      ImageFileSize: faker.number.int({ min: 30, max: 999 }), 
+      UploadDate: faker.date.past(),
+      FileType: getRandomImageFileType()
     }
 }
 

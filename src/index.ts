@@ -29,6 +29,7 @@ app.get('/pageData', (c) => {
         AllowDeleteAlbum: true,
         AllowRenameAlbum: true,
         AllowShareAlbum: true,
+        AllowAddAlbum: true
       }
     },
     200
@@ -92,12 +93,10 @@ app.get('/getAlbumTree', (c) => {
   if (!params.albumId)
     isHome = true
 
-  const response = isHome ? [] : [
-    {
-      albumId: faker.number.int({ min: 1, max: 1000 }), 
-      name: faker.music.genre(),
-    }
-  ]
+  const response = isHome ? [] : Array.from({
+    albumId: faker.number.int({ min: 1, max: 1000 }), 
+    name: faker.music.genre(),
+  }, 10)
 
   return c.json( 
     {
