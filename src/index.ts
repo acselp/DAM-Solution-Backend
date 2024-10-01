@@ -2,10 +2,18 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import {generateChildrenAlbumList, generateAlbumList} from './factories/album-factory';
 import { faker } from '@faker-js/faker';
+import { cors } from 'hono/cors'
 
 const albums = generateAlbumList(10);
 
 const app = new Hono()
+
+app.use('*', async (c, next) => {
+  const corsMiddlewareHandler = cors({
+    origin: "*",
+  })
+  return corsMiddlewareHandler(c, next)
+})
 
 app.get('/albums', (c) => {
   const params = c.req.query()
@@ -93,10 +101,12 @@ app.get('/getAlbumTree', (c) => {
   if (!params.albumId)
     isHome = true
 
-  const response = isHome ? [] : Array.from({
-    albumId: faker.number.int({ min: 1, max: 1000 }), 
-    name: faker.music.genre(),
-  }, 10)
+  const response = isHome ? [] : Array.from({ length: 20}, () => {
+    return {
+      albumId: faker.number.int({ min: 1, max: 1000 }), 
+      name: faker.music.genre(),
+    }
+  })
 
   return c.json( 
     {
