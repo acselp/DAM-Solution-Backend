@@ -21,7 +21,7 @@ const generateAlbumChildren = () => {
     return faker.helpers.arrayElement(imageFileTypes);
   }
 
-  const type = faker.number.int({ min: 1, max: 2 })
+  const type = faker.number.int({ min: 0, max: 1 })
 
   return  {
       Type: type, 

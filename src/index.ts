@@ -22,7 +22,7 @@ app.get('/albums', (c) => {
 console.log(albumId)
   return c.json(
     {
-      Data: albumId ? generateChildrenAlbumList(20) : albums,
+      Data: generateChildrenAlbumList(20),
       PageIndex: 2,
       PageSize: 5,
       TotalCount: 40
@@ -98,19 +98,21 @@ app.get('/getAlbumTree', (c) => {
   const params = c.req.query()
   let isHome = false;
 
-  if (!params.albumId)
+  console.log(params)
+
+  if (!params.itemId)
     isHome = true
 
-  const response = isHome ? [] : Array.from({ length: 20}, () => {
+  const response = isHome ? [] : Array.from({ length: 5}, () => {
     return {
-      albumId: faker.number.int({ min: 1, max: 1000 }), 
-      name: faker.music.genre(),
+      Text: faker.music.genre(),
+	    Id: faker.number.int({ min: 1, max: 1000 }), 
     }
   })
 
   return c.json( 
     {
-      Tree: response
+      Tree: response ?? []
     },
     200
   )
