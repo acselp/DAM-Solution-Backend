@@ -66,12 +66,7 @@ app.post('/removeImages', async (c) => {
 app.post('/createAlbum', async (c) => {
   const body = await c.req.parseBody()
 
-  albums.push({ 
-    Name: body.albumName,
-    AlbumOwner: 'Owner',
-    ItemsCount: 1,
-    ImageUrl: "https://picsum.photos/200"
-  })
+  return c.json({}, 200);
 })
 
 app.post('/addImages', async (c) => {
@@ -103,7 +98,7 @@ app.get('/getAlbumTree', (c) => {
   if (!params.itemId)
     isHome = true
 
-  const response = isHome ? [] : Array.from({ length: 5}, () => {
+  const response = isHome ? [] : Array.from({ length: 15}, () => {
     return {
       Text: faker.music.genre(),
 	    Id: faker.number.int({ min: 1, max: 1000 }), 
