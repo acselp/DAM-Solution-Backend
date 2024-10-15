@@ -69,7 +69,29 @@ app.post('/createAlbum', async (c) => {
   return c.json({}, 200);
 })
 
+app.post('/removeAlbum', async (c) => {
+  const body = await c.req.parseBody()
+
+  return c.json({}, 200);
+})
+
+app.post('/addImage', async (c) => {
+  return c.json({
+    Success: true,
+    Errors: [],
+    Data: []
+  }, 200)
+})
+
 app.post('/addImages', async (c) => {
+  return c.json({
+    Success: true,
+    Errors: [],
+    Data: []
+  }, 200)
+})
+
+app.post('/replaceImage', async (c) => {
   return c.json({
     Success: true,
     Errors: [],
@@ -88,6 +110,8 @@ app.get('/getAlbumChildren', (c) => {
     200
   )
 })
+
+
 
 app.get('/getAlbumTree', (c) => {
   const params = c.req.query()
